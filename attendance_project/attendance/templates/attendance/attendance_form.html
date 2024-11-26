@@ -1,0 +1,47 @@
+{% extends 'attendance/base.html' %}
+
+{% block content %}
+<h1>Attendance Form</h1>
+<form method="post">
+    {% csrf_token %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>USN</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.usn }}</td>
+                <td>{{ student.name }}</td>
+                <td><input type="date" name="date" value="{{ date }}" readonly></td>
+                <td>
+                    <label>
+                        <input type="radio" name="status_{{ student.id }}" value="Present"> Present
+                    </label>
+                    <label>
+                        <input type="radio" name="status_{{ student.id }}" value="Absent"> Absent
+                    </label>
+                    <label>
+                        <input type="radio" name="status_{{ student.id }}" value="Leave"> Leave
+                    </label>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label for="subject">Subject:</label>
+        <select name="subject" id="subject" class="form-control">
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

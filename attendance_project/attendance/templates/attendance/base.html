@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Attendance Management{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'attendance/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'department_list' %}">Departments</a></li>
+                <li><a href="{% url 'teacher_list' %}">Teachers</a></li>
+                <li><a href="{% url 'subject_list' %}">Subjects</a></li>
+                <li><a href="{% url 'student_list' %}">Students</a></li>
+                <li><a href="{% url 'attendance_form' %}">Take Attendance</a></li>
+                <li><a href="{% url 'attendance_list' %}">Attendance</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Attendance Management System</p>
+    </footer>
+</body>
+</html>
+

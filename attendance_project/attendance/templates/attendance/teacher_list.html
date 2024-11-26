@@ -1,0 +1,33 @@
+{% extends 'attendance/base.html' %}
+{% load custom_tags %}
+{% block content %}
+<h1>Teachers</h1>
+{% if user|is_teacher %}
+    <a href="{% url 'add_teacher' %}" class="btn btn-success">Add New Teacher</a>
+{% endif %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Qualifications</th>
+        {% if user|is_teacher %}
+            <th>Actions</th>
+        {% endif %}
+    </tr>
+    {% for teacher in teachers %}
+    <tr>
+        <td>{{ teacher.t_id }}</td>
+        <td>{{ teacher.name }}</td>
+        <td>{{ teacher.department.name }}</td>
+        <td>{{ teacher.qualifications }}</td>
+        {% if user|is_teacher %}
+            <td>
+                <a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete_teacher' teacher.id %}" class="btn btn-primary">Delete</a>
+            </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
